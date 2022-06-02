@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
@@ -18,10 +19,98 @@
 </head>
 
 <body>
+  <section class="container">
+    <header class="d-flex align-items-center justify-content-between">
+      <div>
+        <h1 class="text-light">News site</h1>
+      </div>
+      <form class="form d-flex w-75 justify-content-between" action="">
+        <input class="js_news_title_input form-control w-50 me-3" placeholder="news" type="text">
+        <select class="select_value form-control w-50" name="" id="">
+          <option value="popularity">popularity</option>
+          <option value="relevancy">relevancy</option>
+          <option value="popularity">popularity</option>
+          <option value="publishedAt">publishedAt</option>
+          <option value="publishedAt">publishedAt</option>
+        </select>
+        <button class="done btn btn-primary">Search</button>
+      </form>
+      <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><i
+          class='bx fs-5 bx-bookmark-alt'></i></button>
+    </header>
 
+    <main>
+      <div>
+        <ul class="p-0 js_result_list d-flex flex-wrap list-unstyled">
+          <template class="js_template_item">
 
+            <li class="news_item mt-5 col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12">
+              <div class="m-2 news_wrapper_info">
+                <img class="news_img w-100"
+                  src="https://i.picsum.photos/id/1084/536/354.jpg?grayscale&hmac=Ux7nzg19e1q35mlUVZjhCLxqkR30cC-CarVg-nlIf60"
+                  alt="">
+                <p class="fw-bold fs-5">Author: <span class="fw-normal news_author"></span></p>
+                <div class="news_block">
+                  <p class="fw-bold fs-5">Name: <span class="fw-normal news_name"></span></p>
+                  <p class="fw-bold fs-5">Title: <span class="fw-normal news_title"></span></p>
+                  <p class="fw-bold fs-6">Description <span class="fw-normal news_description"></span></p>
+                </div>
+                <p class="news_data"></p>
+                <p class="news_content"></p>
+                <div class="news_btn_part d-flex">
+                  <a class="news_link btn btn-primary news_site_url ms-4" href="" target="_blank">Link</a>
+                  <button class="news_modal btn btn-primary ms-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">More</button>
+                  <button class="news_bookmark btn btn-primary ms-4">Add</button>
+                </div>
+              </div>
+            </li>
 
+          </template>
+        </ul>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img class="news_modal_img w-100" src="img/globe-background-8.png" alt="">
+              <p class="news_modal_title">News modal title</p>
+              <p class="news_modal_description">News modal description</p>
+              <p class="news_modal_categories">News modal categories</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bookmarkning offcanvasi ya'ni o'ng tomondan chiqadiagn modal -->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <ul class="offcanvas-body">
+          <li class="card">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta repellat perferendis obcaecati
+              similique exercitationem corrupti omnis recusandae natus fugit, architecto, tenetur animi ex
+              reprehenderit. Tenetur atque reprehenderit quasi assumenda!</p>
+            <p>data news</p>
+            <button class="btn btn-primary">X</button>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+  </section>
+
+  <script src="utils.js"></script>
   <script src="main.js"></script>
+
 </body>
 
 </html>

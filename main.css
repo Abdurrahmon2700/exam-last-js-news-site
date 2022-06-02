@@ -1,0 +1,33 @@
+body {
+  background-image: url('img/cropped-1577.jpg');
+}
+
+.news_item {
+  position: relative;
+  color: aliceblue;
+}
+
+.news_img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.news_wrapper_info {
+}
+
+.news_block {
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #000;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+.news_btn_part {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
