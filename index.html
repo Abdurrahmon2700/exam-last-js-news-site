@@ -79,10 +79,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <img class="news_modal_img w-100" src="img/globe-background-8.png" alt="">
-              <p class="news_modal_title">News modal title</p>
-              <p class="news_modal_description">News modal description</p>
-              <p class="news_modal_categories">News modal categories</p>
+              <template class="modal_template">
+                <img class="news_modal_img w-100" src="img/globe-background-8.png" alt="">
+                <p class="news_modal_title">News modal title</p>
+                <p class="news_modal_description">News modal description</p>
+                <p class="news_modal_data">News modal categories</p>
+              </template>
             </div>
           </div>
         </div>
@@ -95,13 +97,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <ul class="offcanvas-body">
-          <li class="card">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta repellat perferendis obcaecati
-              similique exercitationem corrupti omnis recusandae natus fugit, architecto, tenetur animi ex
-              reprehenderit. Tenetur atque reprehenderit quasi assumenda!</p>
-            <p>data news</p>
-            <button class="btn btn-primary">X</button>
-          </li>
+          <template class="bookmark_template">
+            <li class="card">
+              <p class="bookmar_title_news">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta
+                repellat perferendis obcaecati
+                similique exercitationem corrupti omnis recusandae natus fugit, architecto, tenetur animi ex
+                reprehenderit. Tenetur atque reprehenderit quasi assumenda!</p>
+              <p>data news</p>
+              <button class="btn btn-primary">X</button>
+            </li>
+          </template>
         </ul>
       </div>
     </main>
