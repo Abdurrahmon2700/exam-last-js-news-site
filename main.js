@@ -1,8 +1,12 @@
-// litni chaqirib olish
+const API_KEY = "3071761379724631b5fdd5005776672e";
+
+// listni chaqirib olish
 elResultList = $(".js_result_list");
 
 // templateni chaqirib olish
 elTemplate = $(".js_template_item").content;
+
+// selectni chaqirib olish
 elSelect = $(".select_value");
 
 // elmodal template
@@ -14,41 +18,51 @@ elModalBodyResultList = $(".modal-body");
 //bookmark list
 elBookmarkList = $(".offcanvas-body");
 
-// bookmark template 
+// bookmark template
 elBookmarkTemplate = $(".bookmark_template").content;
 
-let bookmark = [];
+// fetch bo'lgan ma'lumotni shu arrayga yig'ib olish
+let fetchArray = [];
 
-let arr = []
+let bookMark = JSON.parse(localStorage.getItem("news")) || [];
+
 // inputdan qiymatini olish
 elInputValue = $(".js_news_title_input");
+
+// done buttoni olib kelish
 elDone = $(".done");
+
+// qidiruv tizimi ishga tushurish
 elDone.addEventListener("click", (e) => {
-  e.preventDefault()
+  e.preventDefault();
   if (elInputValue.value == "") {
-    return
+    return;
   }
   callNews(elInputValue.value, elSelect.value);
+});
 
-})
+// ma'lumotlarni API dan olib kelib fetch qiladigan function
 let FETCH_NES_API = "https://newsapi.org/v2/everything";
 
 let callNews = function (item = "tesla", publish = "publish") {
-  fetch(FETCH_NES_API + `?q=${item}&from=2022-05-02&sortBy=${publish}&apiKey=dfd3e1339f6c438197bfa42b0acf5450`)
+  fetch(
+      FETCH_NES_API +
+      `?q=${item}&from=2022-05-02&sortBy=${publish}&apiKey=${API_KEY}`
+    )
     .then(function (resepons) {
       return resepons.json();
     })
-    .then(data => {
-      arr = data.articles;
-      renderNews(data.articles)
-    })
-}
+    .then((data) => {
+      fetchArray = data.articles;
+      renderNews(data.articles);
+    });
+};
 
-
+// asosiy result listga ma'lumotlarni joylash 
 let renderNews = (data) => {
-  // fragment yaratish 
+
   let elResultFragment = document.createDocumentFragment();
-  elResultList.innerHTML = ""
+  elResultList.innerHTML = "";
   data.forEach(function (news) {
     let elNewsTemplate = elTemplate.cloneNode(true);
     $(".news_img", elNewsTemplate).src = news.urlToImage;
@@ -61,56 +75,57 @@ let renderNews = (data) => {
     $(".news_modal", elNewsTemplate).dataset.id = news.title;
     $(".news_bookmark", elNewsTemplate).dataset.title = news.title;
 
-
     elResultFragment.appendChild(elNewsTemplate);
   });
   elResultList.appendChild(elResultFragment);
-}
+};
 
+// item ichidagi qaysi button bosilganini aniqlab olish
 elResultList.addEventListener("click", (e) => {
+
+  // birinchi if modal uchun ishlaydi 
   if (e.target.matches(".news_modal")) {
-    const foundNews = arr.filter(i => i.title == e.target.dataset.id)
-    renderNewsModal(foundNews)
+    const foundNews = fetchArray.filter((i) => i.title == e.target.dataset.id);
+    renderNewsModal(foundNews);
   }
 
+  // ikkinchi if bookmark uchun ishlaydi
   if (e.target.matches(".news_bookmark")) {
-    const foundNews = arr.filter(i => i.title == e.target.dataset.title)
-    if (!bookmark.includes(foundNews)) {
-      bookmark.push(foundNews);
+    const foundNews = fetchArray.filter((i) => i.title == e.target.dataset.title);
+    let count = foundNews.map((e) => e.title);
+
+    if (!fetchArray.includes(count)) {
+      bookMark.push(foundNews);
+      window.localStorage.setItem("news", JSON.stringify(bookMark));
     }
+    bookMarkRender(bookMark);
   }
-})
-
-
-
-
-
-
-
+});
 
 // Modalga render qilish
 let renderNewsModal = (data) => {
-
   let modalFragment = document.createDocumentFragment();
-  elModalBodyResultList.innerHTML = ""
-  data.forEach(e => {
+  elModalBodyResultList.innerHTML = "";
+  data.forEach((e) => {
     let modalTemplate = elModalTemolate.cloneNode(true);
     $(".news_modal_img", modalTemplate).src = e.urlToImage;
     $(".news_modal_title", modalTemplate).textContent = e.title;
     $(".news_modal_description", modalTemplate).textContent = e.description;
-    modalFragment.appendChild(modalTemplate)
-  })
-  elModalBodyResultList.appendChild(modalFragment)
-}
+    modalFragment.appendChild(modalTemplate);
+  });
+  elModalBodyResultList.appendChild(modalFragment);
+};
 
-// Bookmarkga render qilish
-let renderBookmark = (data) => {
-
-  let bookMarkFragment = document.createDocumentFragment();
-  data.forEach(e => {
-    let elBookmarkTemplateNews = elBookmarkTemplate.cloneNode(true);
-    $(".bookmar_title_news", elBookmarkTemplateNews).textContent = e.title;
-  })
-  elBookmarkList.appendChild(bookMarkFragment)
-}
-callNews()
+// Bookmaekni ishlatolmadim lekin bundan oldingi vazifada qilgan edim 
+// Bookmarkga render qilish 
+// let bookMarkRender = (array) => {
+//   console.log(array);
+//   elBookmarkList.innerHTML = "";
+//   let bookMarkFragment = document.createDocumentFragment();
+//   bookMark.forEach(function (news) {
+//     let elBookmarkTemplateNews = elBookmarkTemplate.cloneNode(true);
+//     $(".bookmar_title_news", elBookmarkTemplateNews).textContent = news.title;
+//   });
+//   elBookmarkList.appendChild(bookMarkFragment);
+// };
+callNews();
