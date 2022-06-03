@@ -1,4 +1,5 @@
-const API_KEY = "3071761379724631b5fdd5005776672e";
+const API_KEY = "6f57c79666114bdd96fc03b95436abbf";
+
 
 // listni chaqirib olish
 elResultList = $(".js_result_list");
@@ -44,10 +45,11 @@ elDone.addEventListener("click", (e) => {
 // ma'lumotlarni API dan olib kelib fetch qiladigan function
 let FETCH_NES_API = "https://newsapi.org/v2/everything";
 
+
 let callNews = function (item = "tesla", publish = "publish") {
   fetch(
       FETCH_NES_API +
-      `?q=${item}&from=2022-05-02&sortBy=${publish}&apiKey=${API_KEY}`
+      `?q=${item}&from=2022-06-03&sortBy=${publish}&apiKey=${API_KEY}`
     )
     .then(function (resepons) {
       return resepons.json();
@@ -115,6 +117,7 @@ let renderNewsModal = (data) => {
   });
   elModalBodyResultList.appendChild(modalFragment);
 };
+callNews();
 
 // Bookmaekni ishlatolmadim lekin bundan oldingi vazifada qilgan edim 
 // Bookmarkga render qilish 
@@ -128,4 +131,3 @@ let renderNewsModal = (data) => {
 //   });
 //   elBookmarkList.appendChild(bookMarkFragment);
 // };
-callNews();
